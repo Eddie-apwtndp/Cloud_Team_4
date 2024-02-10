@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header block-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Group 4 - Login Page</title>
+  <!-- Link to external CSS file for styling-->
+  <link rel="stylesheet" href="styles.css"> 
+
+</head>
+
+<!-- Body of page. Login Form and submission-->
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="return validateLogin()">
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <input type="submit" value="Login">
+    </form>
+  </div>
+
+  <!--JavaScript Code -->
+  <script>
+
+    //Hard Coded list of users
+    const users = new Map([
+      ["user1", "password1"],
+      ["user2", "password2"],
+      ["user3", "password3"],
+      ["user4", "password4"],
+      ["user5", "password5"]
+    ]);
+
+    function validateLogin() {
+      //Entered info from the user
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+
+      // Check if the username exists in the users map and if the corresponding password matches
+      if (users.has(username) && users.get(username) === password) {
+          //Redirect to new page
+          window.location.href = "successfulLogin.html";
+          return false; // Prevent form submission      
+        } else {
+          alert("Invalid username or password. Please try again.");
+          return false; // Prevent form submission
+      }
+
+    }
+  </script>
+</body>
+</html>
