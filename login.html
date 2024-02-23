@@ -34,7 +34,7 @@
         
         function loginUser() {
             var formData = new FormData(document.getElementById("loginForm"));
-            fetch('TODOAPILINK', {
+            fetch('https://6aa0vj6iml.execute-api.us-east-1.amazonaws.com/testing', {
                 method: 'POST',
                 body: formData,
             })
