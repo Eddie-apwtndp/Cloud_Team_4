@@ -26,22 +26,30 @@
   <!--JavaScript Code -->
   <script>
 
-    function validateLogin() {
-      //Entered info from the user
-      var username = document.getElementById('username').value;
-      var password = document.getElementById('password').value;
-
-      // Check if the username exists in the users map and if the corresponding password matches
-      if (users.has(username) && users.get(username) === password) {
-          //Redirect to new page
-          window.location.href = "successfulLogin.html";
-          return false; // Prevent form submission      
-        } else {
-          alert("Invalid username or password. Please try again.");
-          return false; // Prevent form submission
-      }
-
-    }
+    document.getElementById("loginForm").addEventListener("submit", function(event){
+            event.preventDefault();
+            loginUser();
+        });
+        
+        
+        function loginUser() {
+            var formData = new FormData(document.getElementById("loginForm"));
+            fetch('TODOAPILINK', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    document.getElementById("response").innerHTML = "Login successful";
+                } else {
+                    document.getElementById("response").innerHTML = "Incorrect login: " + data.message;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
   </script>
 </body>
 </html>
