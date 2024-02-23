@@ -34,7 +34,7 @@
         
         function loginUser() {
             var formData = new FormData(document.getElementById("loginForm"));
-            fetch('https://6aa0vj6iml.execute-api.us-east-1.amazonaws.com/testing', {
+            fetch('https://6aa0vj6iml.execute-api.us-east-1.amazonaws.com/testing/login', {
                 method: 'POST',
                 body: formData,
             })
