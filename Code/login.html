@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" name="username" placeholder="Username">
+      <input type="password" id="password" name="password" placeholder="Password">
+      <input type="submit" value="Login">
+    </form>
+
+  <script>
+
+    document.getElementById("loginForm").addEventListener("submit", function(event){
+      event.preventDefault();
+      loginUser();
+    });
+        
+        
+        function loginUser() {
+           // Get username and password from form fields
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            
+            var requestBody = {
+              username: username,
+              password: password
+            };
+
+      // Convert the request body to JSON
+      var jsonBody = JSON.stringify(requestBody);
+            
+            //Gateway url
+            api_url = 'https://ywdchuyoag.execute-api.us-east-1.amazonaws.com/default/LambdaFunctionWithRDS'
+
+            // Make POST request to API Gateway endpoint
+            fetch(api_url, {
+              method: 'POST',
+              body: jsonBody,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle response from Lambda function
+                if (data.success) {
+                    //alert("Login successful");
+                    // Redirect to another page or perform other actions
+                    window.location.href = "successfulLogin.html";
+                } else {
+                    alert("Login failed: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred. Please try again later.");
+            });
+        }
+  </script>
+</body>
+</html>
