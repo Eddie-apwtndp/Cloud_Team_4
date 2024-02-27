@@ -17,7 +17,6 @@
         input[type="submit"]:hover {
             background-color: #15078f;
         }
-
     </style>
 </head>
 
@@ -79,33 +78,34 @@
 
         // Convert the request body to JSON
         var jsonBody = JSON.stringify(requestBody);
-        //Temp redirection 
-        window.location.href = "login.html";
 
         //Gateway url
-        //api_url = 'https://ywdchuyoag.execute-api.us-east-1.amazonaws.com/default/LambdaFunctionWithRDS'
+        api_url = 'https://ywdchuyoag.execute-api.us-east-1.amazonaws.com/default/createUserFunction'
+
+        //TODO: API response handling needs to be fixed
 
         // Make POST request to API Gateway endpoint
-        /*fetch(api_url, {
-          method: 'POST',
-          body: jsonBody,
+        fetch(api_url, {
+            method: 'POST',
+            body: jsonBody,
         })
-        //Get the response from the API
-        .then(response => response.json())
-        .then(data => {
-          // Handle response from Lambda function
-          if (data.success) {
-            // Redirect to the successful login page
-            window.location.href = "login.html";
-          } else {
+            //Get the response from the API
+            .then(response => response.json())
+            .then(data => {
+                // Handle response from Lambda function
+                if (data.success) {
+                    // Redirect to the successful login page
+                    window.location.href = "login.html";
+                } /*else {
             alert("Creating account failed: " + data.message);
-          }
-        })
-        //Catch any errors that are thrown when fetching the API response
-        .catch(error => {
-          console.error('Error:', error);
-          alert("An error occurred. Please try again later.");
-        });*/
+          }*/
+            })
+            //Catch any errors that are thrown when fetching the API response
+            .catch(error => {
+
+                alert("Creating account failed: " + data.message);
+                //alert("An error occurred. Please try again later.");
+            });
     }
 </script>
 
