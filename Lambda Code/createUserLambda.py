@@ -11,6 +11,7 @@ db_password = os.environ['PASSWORD']
 rds_proxy_host = os.environ['RDS_PROXY_HOST']
 db_name = os.environ['DB_NAME']
 
+#Create the logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

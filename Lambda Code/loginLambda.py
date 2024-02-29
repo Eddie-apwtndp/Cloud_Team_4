@@ -1,3 +1,4 @@
+#Remove sys import if sys.exit is not needed anymore
 import sys
 import logging
 import pymysql
@@ -10,14 +11,12 @@ db_password = os.environ['PASSWORD']
 rds_proxy_host = os.environ['RDS_PROXY_HOST']
 db_name = os.environ['DB_NAME']
 
+#Create the logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 #*** Moved connection to rds code to inside the function to allow the lambda 
 #*** to update when the RDS changes (new user is created)
-
-
-logger.info("SUCCESS: Connection to RDS for MySQL instance succeeded")
 
 def lambda_handler(event, context):
     #Try to connect the the database
@@ -37,6 +36,9 @@ def lambda_handler(event, context):
         #Is this needed now that connection is inside function?
         #sys.exit(1)
         
+    #Successful SQL connection
+    logger.info("SUCCESS: Connection to RDS for MySQL instance succeeded")
+
     # Parse request body
     body = json.loads(event['body'])
     username = body.get('username')
