@@ -63,13 +63,18 @@
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
 
-        //Check if the user entered something into the form (exclude whitespaces)
+        //Check if the user entered something into the form (exclude whitespaces). Form cannot be empty
         if (username.trim() === "") {
+            //Alert user of missing value and exit function
             alert("Please enter a username.");
+            return;
         }
         if (password.trim() === "") {
+            //Alert user of missing value and exit function
             alert("Please enter a password.");
+            return;
         }
+
         //The user object from what is currently in the form
         var requestBody = {
             username: username,
@@ -82,8 +87,6 @@
         //Gateway url
         api_url = 'https://ywdchuyoag.execute-api.us-east-1.amazonaws.com/default/createUserFunction'
 
-        //TODO: API response handling needs to be fixed
-
         // Make POST request to API Gateway endpoint
         fetch(api_url, {
             method: 'POST',
@@ -91,19 +94,19 @@
         })
             //Get the response from the API
             .then(response => response.json())
+            //Handle the reposnse data from the API
             .then(data => {
-                // Handle response from Lambda function
+                //If the reponse was succcessfull (200 code)
                 if (data.success) {
-                    // Redirect to the successful login page
+                    // Redirect to the login page to let the user login with their new account
                     window.location.href = "login.html";
-                } /*else {
-            alert("Creating account failed: " + data.message);
-          }*/
+                }else{
+                    alert("Creating account failed: " + data.message);
+                }
             })
-            //Catch any errors that are thrown when fetching the API response
+            //Catch any errors that are thrown when fetching the API response 
             .catch(error => {
-
-                alert("Creating account failed: " + data.message);
+                alert("An error has occured: " + data.message);
                 //alert("An error occurred. Please try again later.");
             });
     }

@@ -48,15 +48,14 @@
         //Gateway url
         api_url = 'https://ywdchuyoag.execute-api.us-east-1.amazonaws.com/default/LambdaFunctionWithRDS'
 
-
-
-        // Make POST request to API Gateway endpoint
+        // Make POST request to API Gateway endpoint containing our user's data
         fetch(api_url, {
           method: 'POST',
           body: jsonBody,
         })
           //Get the response from the API
           .then(response => response.json())
+          //Look ath the response data from the API
           .then(data => {
             // Handle response from Lambda function
             if (data.success) {
